@@ -2,14 +2,15 @@
 // Fiche : fiches/3-recoltes.md · Vérifier : npm run test:recoltes
 
 // Renvoie le total des kilos récoltés sur une parcelle. Aucune récolte : 0.
-export function totalRecolte(recoltes, idParcelle) {
-  throw new Error("TODO Membre 3 : coder totalRecolte dans src/recoltes.js");
+export function totalRecolte(recoltes,idparcelle){
+  return recoltes.filter(recolte => recolte.parcelle === idparcelle).reduce((total, recolte) => total +recolte.kg, 0);
+  
 }
-
+ 
 // Renvoie le rendement en kg par hectare, arrondi à l'entier le plus proche.
 // Une surface nulle ou négative est une erreur : on lance une RangeError.
 export function rendement(kg, surface) {
-  throw new Error("TODO Membre 3 : coder rendement dans src/recoltes.js");
+  ("TODO Membre 3 : coder rendement dans src/recoltes.js");
 }
 
 // Renvoie le revenu estimé en FCFA.
