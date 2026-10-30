@@ -26,7 +26,16 @@ export function surfaceTotale(parcelles) {
 // Renvoie un objet : pour chaque culture, le nombre de parcelles et leur surface.
 // Exemple : { cacao: { nombre: 2, surface: 5 }, riz: { nombre: 1, surface: 1 } }
 export function resumeParCulture(parcelles) {
-  throw new Error(
-    "TODO Membre 1 : coder resumeParCulture dans src/parcelles.js",
-  );
+  return parcelles.reduce((resume, parcelle) => {
+    const { culture, surface } = parcelle;
+
+    if (!resume[culture]) {
+      resume[culture] = { nombre: 0, surface: 0 };
+    }
+
+    resume[culture].nombre += 1;
+    resume[culture].surface += surface;
+
+    return resume;
+  }, {});
 }
