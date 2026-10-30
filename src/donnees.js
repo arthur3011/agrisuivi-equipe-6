@@ -37,12 +37,62 @@ export async function chargerDonnees(dossier) {
 // Vérifie les textes tapés dans le terminal et renvoie un nouveau relevé.
 // Exemple : creerReleve('p07', '64', '29', '2026-10-29')
 //   → { parcelle: 'P07', date: '2026-10-29', humidite: 64, temperature: 29 }
+
 export function creerReleve(parcelle, humiditeTexte, temperatureTexte, date) {
-  throw new Error("TODO Membre 4 : coder creerReleve dans src/donnees.js");
+
+    // 1. Vérifier la parcelle
+    if (!parcelle) {
+        throw new Error('La parcelle est obligatoire');
+    }
+
+    // 2. Convertir les textes en nombres
+    const humidite = Number(humiditeTexte);
+    const temperature = Number(temperatureTexte);
+
+    // 3. Vérifier l'humidité
+    if (
+        humiditeTexte.trim() === '' ||
+        Number.isNaN(humidite) ||
+        humidite < 0 ||
+        humidite > 100
+    ) {
+        throw new Error('Humidité invalide');
+    }
+
+    // 4. Vérifier la température
+    if (
+        temperatureTexte.trim() === '' ||
+        Number.isNaN(temperature)
+    ) {
+        throw new Error('Température invalide');
+    }
+
+    // 5. Retourner le relevé
+    return {
+        parcelle: parcelle.toUpperCase(),
+        date: date,
+        humidite: humidite,
+        temperature: temperature
+    };
 }
+
 
 // Ajoute le relevé à la fin du fichier JSON, enregistre le fichier,
 // puis renvoie le nouveau nombre de relevés.
 export async function ajouterReleve(chemin, releve) {
-  throw new Error("TODO Membre 4 : coder ajouterReleve dans src/donnees.js");
+
+    // 1. Lire les relevés existants
+    const releves = await lireJson(chemin);
+
+    // 2. Ajouter le nouveau relevé
+    releves.push(releve);
+
+    // 3. Transformer le tableau en texte JSON
+    const texte = JSON.stringify(releves, null, 2);
+
+    // 4. Enregistrer le nouveau contenu
+    await writeFile(chemin, texte, 'utf8');
+
+    // 5. Retourner le nombre total de relevés
+    return releves.length;
 }
