@@ -80,5 +80,19 @@ export function creerReleve(parcelle, humiditeTexte, temperatureTexte, date) {
 // Ajoute le relevé à la fin du fichier JSON, enregistre le fichier,
 // puis renvoie le nouveau nombre de relevés.
 export async function ajouterReleve(chemin, releve) {
-  throw new Error("TODO Membre 4 : coder ajouterReleve dans src/donnees.js");
+
+    // 1. Lire les relevés existants
+    const releves = await lireJson(chemin);
+
+    // 2. Ajouter le nouveau relevé
+    releves.push(releve);
+
+    // 3. Transformer le tableau en texte JSON
+    const texte = JSON.stringify(releves, null, 2);
+
+    // 4. Enregistrer le nouveau contenu
+    await writeFile(chemin, texte, 'utf8');
+
+    // 5. Retourner le nombre total de relevés
+    return releves.length;
 }
